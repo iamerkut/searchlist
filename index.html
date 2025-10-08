@@ -69,7 +69,14 @@
     </div>
   </div>
   
-  <style>
+  <script>
+  (function injectBrandStyles() {
+    const STYLE_ID = 'brand-list-styles';
+    if (document.getElementById(STYLE_ID)) return;
+
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
     :root {
       --primary: #197149;
       --primary-hover: #0b3e27;
@@ -364,9 +371,11 @@
         padding: 14px 16px;
       }
     }
-  </style>
-  
-  <script>
+    `;
+
+    (document.head || document.body || document.documentElement).appendChild(style);
+  })();
+
   document.addEventListener('DOMContentLoaded', () => {
     /* === 1) Link veri setleri === */
     // PKW (binek)
@@ -585,7 +594,7 @@
   
     /* === 5) Event bağlama === */
     loadMoreBtn.addEventListener('click', toggleLoadMore);
-    tabPKW.addEventListener('click', () => switchTab('PKW'));    git push -u origin master
+    tabPKW.addEventListener('click', () => switchTab('PKW'));
     tabWohn.addEventListener('click', () => switchTab('Wohnmobil'));
   
     /* === 6) Başlat === */
